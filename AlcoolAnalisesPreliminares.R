@@ -19,7 +19,7 @@ banco[,names] <- lapply(banco[,names] , factor)
 str(banco)
 
 # Tabela de Frequencia 1 - Have a drink at home and Gendr
-# Banco Alcool
+
 library(questionr)
 tab1 <- freq(banco$Heavy_drinker_at_home, sort = "inc",valid = FALSE, total = TRUE)
 tab2 <- freq(banco$Gender, sort = "inc",valid = FALSE, total = TRUE)
@@ -111,9 +111,3 @@ write_xlsx(tabela2, "Tabela2.xlsx")
 ?write_xlsx
 summary(tab1, text=TRUE)
 library(writexl)
-
-#### Testar
-#### http://www.est.ufmg.br/~monitoria/Material/Manual_Rcmdr.pdf
-
-install.packages("seminr")
-library(seminr)
