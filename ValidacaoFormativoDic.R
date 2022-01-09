@@ -1,7 +1,4 @@
-###### Validação FORMATIVO #######
-### Análises Baseada no site http://www.understandingdata.net/2017/03/22/cfa-in-lavaan/
-
-###### Omiti valores Missing verificar Inputação #########
+###### Validação FORMATIVO SeminR #######
 
 setwd("D:/Users/User/Documents/MEGA/Doutorado/ValidacaoCHAOS/Dicotomico")
 getwd()
