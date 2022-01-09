@@ -1,42 +1,39 @@
-######## Análises Preliminares Questionário Uso de Alcool- Auditi-C Modificado #########
-
-# Início dia 01/07/2021
-# Término dia
+######## Análises Preliminares #########
 
 # Mudanças no Banco de Dados ver script Manipulação Banco de Dados
 
 ###### TRADUZIR O SCRIPT ########
 
-setwd("D:/Users/User/Documents/MEGA/Doutorado/Bancos_de_dados/Alcool")
+setwd("D:/Users/User/Documents/")
 getwd()
 
 library(pacman)
 pacman::p_load(dplyr,plyr,arsenal,gtsummary,tidyverse,openxlsx,arsenal,tibble,readxl,writexl)
 
-alcool <- read_xlsx("BancoAlcool2.xlsx", sheet = 1)
-alcooluni <- read_xlsx("BancoAlcool2.xlsx", sheet = 2)
+banco <- read_xlsx("BancoAlcool2.xlsx", sheet = 1)
+uni <- read_xlsx("BancoAlcool2.xlsx", sheet = 2)
 
-View(alcooluni)
-str(alcool)
+View(uni)
+str(banco)
 
 # Transformando em Fatores
 
-View(alcool)
+View(banco)
 names <- c(2,6:8,10,12:13,15:16,18:23)
-alcool[,names] <- lapply(alcool[,names] , factor)
-str(alcool)
+banco[,names] <- lapply(banco[,names] , factor)
+str(banco)
 
 # Tabela de Frequencia 1 - Have a drink at home and Gendr
 # Banco Alcool
 library(questionr)
-tab1 <- freq(alcool$Heavy_drinker_at_home, sort = "inc",valid = FALSE, total = TRUE)
-tab2 <- freq(alcool$Gender, sort = "inc",valid = FALSE, total = TRUE)
+tab1 <- freq(banco$Heavy_drinker_at_home, sort = "inc",valid = FALSE, total = TRUE)
+tab2 <- freq(banco$Gender, sort = "inc",valid = FALSE, total = TRUE)
 print(tab1)
 print(tab2)
-freq(alcooluni$Q1eQ2,sort = "inc",valid = FALSE, total = TRUE)
-freq(alcooluni$Q3eQ4, sort = "inc",valid = FALSE, total = TRUE)
-freq(alcooluni$Total_Audit_C, sort = "inc",valid = FALSE, total = TRUE)
-questionr::freq(alcool$Age_years, sort = "inc", total = TRUE)
+freq(uni$Q1eQ2,sort = "inc",valid = FALSE, total = TRUE)
+freq(uni$Q3eQ4, sort = "inc",valid = FALSE, total = TRUE)
+freq(uni$Total_Audit_C, sort = "inc",valid = FALSE, total = TRUE)
+questionr::freq(banco$Age_years, sort = "inc", total = TRUE)
 ?freq()
 
 
@@ -59,13 +56,13 @@ library(Rcmdr)
 # https://cran.r-project.org/web/packages/arsenal/vignettes/tableby.html
 require(knitr)
 require(survival)
-names(alcool)
+names(banco)
 
 
 # continuar o codigo abaixo com todas as variaveis
 # colocar no markdown e mostra pra Sabine
 count
-names(alcool)
+names(banco)
 tab1 <- tableby(~ Gender +
                   Heavy_drinker_at_home+
                   Schooling.Father+
@@ -85,7 +82,7 @@ tab1 <- tableby(~ Gender +
                   AuditC_Q9_sixormore +
                   AuditC_Q10_A_4bestfriends +
                 AuditC_Q10_B_theirparents,
-                data=alcool)
+                data=banco)
 
 tabela1 <- summary(tab1, text=TRUE)
 tabela1 <- data.frame(tabela1)
@@ -111,7 +108,7 @@ tab2 <- tableby(Gender ~
                   AuditC_Q9_sixormore +
                   AuditC_Q10_A_4bestfriends +
                   AuditC_Q10_B_theirparents,
-                data=alcool)
+                data=banco)
 
 tabela2 <- summary(tab2, text=TRUE)
 tabela2 <- data.frame(tabela2)
@@ -125,7 +122,3 @@ library(writexl)
 
 install.packages("seminr")
 library(seminr)
-
-
-
-

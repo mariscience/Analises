@@ -1,8 +1,7 @@
-###### Validação da CHAOS FORMATIVO #######
+###### Validação FORMATIVO #######
 ### Análises Baseada no site http://www.understandingdata.net/2017/03/22/cfa-in-lavaan/
 
-###### Omiti valores Missing verificar Intputação #########
-
+###### Omiti valores Missing verificar Inputação #########
 
 setwd("D:/Users/User/Documents/MEGA/Doutorado/ValidacaoCHAOS/Dicotomico")
 getwd()
@@ -24,22 +23,22 @@ pacman:: p_load(dplyr,
                 semPlot,
                 seminr)
 
-chaosdic <- read_xlsx("ChaosDicProntoForm.xlsx")
-str(chaosdic)
-colnames(chaosdic)[29] <-"TDAHtotal"
-chaosdic[,22:27] <- chaosdic[,22:27] %>% mutate_if(is.character,as.numeric) 
-chaosdic <- na.omit(chaosdic)
-chaosdicIn <-chaosdic[,7:22]
-chaosdicEx <-chaosdic[,c(7:21,24)]
-chaosdicTDAH <- chaosdic[,c(7:21,29)]
+bancodic <- read_xlsx("bancodicProntoForm.xlsx")
+str(bancodic)
+colnames(bancodic)[29] <-"TDAHtotal"
+bancodic[,22:27] <- bancodic[,22:27] %>% mutate_if(is.character,as.numeric) 
+bancodic <- na.omit(bancodic)
+bancodicIn <-bancodic[,7:22]
+bancodicEx <-bancodic[,c(7:21,24)]
+bancodicTDAH <- bancodic[,c(7:21,29)]
 
 #  Analise com o Pacote SEMinR ####
 ##### Dicotomicas ##### 
 ### Desfecho Internalizante ####
 library(seminr)
-names(chaosdic)
-measurements <- constructs(composite("Chaos", colnames(chaosdicIn)[1:15]),
-                           composite("CBCL",colnames(chaosdicIn)[16]))
+names(bancodic)
+measurements <- constructs(composite("Chaos", colnames(bancodicIn)[1:15]),
+                           composite("CBCL",colnames(bancodicIn)[16]))
 
 structure <- relationships(
   paths(from = c("Chaos"), to = "CBCL")
@@ -47,7 +46,7 @@ structure <- relationships(
 
 # Estimando o Modelo: desfecho Internalizante
 
-pls_model <- estimate_pls(data = chaosdicIn, 
+pls_model <- estimate_pls(data = bancodicIn, 
                           measurement_model = measurements, 
                           structural_model = structure)
 summary(pls_model)
@@ -57,8 +56,8 @@ summary(pls_model)$loadings
 
 # Desfecho Externalizante
 
-measurements <- constructs(composite("Chaos", colnames(chaosdicEx)[1:15]),
-                           composite("CBCL",colnames(chaosdicEx)[16]))
+measurements <- constructs(composite("Chaos", colnames(bancodicEx)[1:15]),
+                           composite("CBCL",colnames(bancodicEx)[16]))
 
 structure <- relationships(
   paths(from = c("Chaos"), to = "CBCL")
@@ -66,7 +65,7 @@ structure <- relationships(
 
 # Estimando o Modelo: desfecho Externalizante
 
-pls_model <- estimate_pls(data = chaosdicEx, 
+pls_model <- estimate_pls(data = bancodicEx, 
                           measurement_model = measurements, 
                           structural_model = structure)
 summary(pls_model)
@@ -77,8 +76,8 @@ summary(pls_model)$loadings
 #  Analise com o Pacote SEMinR ####
 ##### Dicotomicas ##### 
 ### Desfecho TDAH ####
-measurements <- constructs(composite("Chaos", colnames(chaosdicTDAH)[1:15]),
-                           composite("CBCL",colnames(chaosdicTDAH)[16]))
+measurements <- constructs(composite("Chaos", colnames(bancodicTDAH)[1:15]),
+                           composite("CBCL",colnames(bancodicTDAH)[16]))
 
 structure <- relationships(
   paths(from = c("Chaos"), to = "CBCL")
@@ -86,7 +85,7 @@ structure <- relationships(
 
 # Estimando o Modelo: desfecho TDAH
 
-pls_model <- estimate_pls(data = chaosdicTDAH, 
+pls_model <- estimate_pls(data = bancodicTDAH, 
                           measurement_model = measurements, 
                           structural_model = structure)
 summary(pls_model)
@@ -99,9 +98,9 @@ summary(pls_model)$loadings
 # Fator 1 - Questoes 1,2,4,7,12,14,15
 # Fator 2 - Questoes 3,5,6,8,9,10,11,13
 
-measurements <- constructs(composite("Chaos1", colnames(chaosdicEx)[c(1,2,4,7,12,14,15)]),
-                           composite("Chaos2", colnames(chaosdicEx)[c(3,5,6,8,9,10,11,13)]),
-                           composite("CBCL",colnames(chaosdicEx)[16]))
+measurements <- constructs(composite("Chaos1", colnames(bancodicEx)[c(1,2,4,7,12,14,15)]),
+                           composite("Chaos2", colnames(bancodicEx)[c(3,5,6,8,9,10,11,13)]),
+                           composite("CBCL",colnames(bancodicEx)[16]))
 
 structure <- relationships(
   paths(from = c("Chaos1","Chaos2"), to = "CBCL")
@@ -109,7 +108,7 @@ structure <- relationships(
 
 # Estimando o Modelo: desfecho Externalizante
 
-pls_model <- estimate_pls(data = chaosdicEx, 
+pls_model <- estimate_pls(data = bancodicEx, 
                           measurement_model = measurements, 
                           structural_model = structure)
 summary(pls_model)
@@ -120,14 +119,14 @@ summary(pls_model)$loadings
 ######### *******#######
 ##### Dois fatores Retirando as Cargas Fatoriais Baixas 
 
-measurements <- constructs(composite("Chaos1", colnames(chaosdicEx)[c(2,7,12,14)]),
-                           composite("Chaos2", colnames(chaosdicEx)[c(3,5,8,11)]),
-                           composite("CBCL",colnames(chaosdicEx)[16]))
+measurements <- constructs(composite("Chaos1", colnames(bancodicEx)[c(2,7,12,14)]),
+                           composite("Chaos2", colnames(bancodicEx)[c(3,5,8,11)]),
+                           composite("CBCL",colnames(bancodicEx)[16]))
 
 structure <- relationships(
   paths(from = c("Chaos1","Chaos2"), to = "CBCL"))
 
-pls_model <- estimate_pls(data = chaosdicEx, 
+pls_model <- estimate_pls(data = bancodicEx, 
                           measurement_model = measurements, 
                           structural_model = structure)
 summary(pls_model)
@@ -139,10 +138,10 @@ summary(pls_model)$loadings
 ## Fator 2 - Questões 3,5,6,8,9,11
 ## Fator 3 - Questões 7,10,13
 
-measurements <- constructs(composite("Chaos1", colnames(chaosdicEx)[c(1,2,4,12,14,15)]),
-                           composite("Chaos2", colnames(chaosdicEx)[c(3,5,6,8,9,11)]),
-                           composite("Chaos3", colnames(chaosdicEx)[c(7,10,13)]),
-                           composite("CBCL",colnames(chaosdicEx)[16]))
+measurements <- constructs(composite("Chaos1", colnames(bancodicEx)[c(1,2,4,12,14,15)]),
+                           composite("Chaos2", colnames(bancodicEx)[c(3,5,6,8,9,11)]),
+                           composite("Chaos3", colnames(bancodicEx)[c(7,10,13)]),
+                           composite("CBCL",colnames(bancodicEx)[16]))
 
 structure <- relationships(
   paths(from = c("Chaos1","Chaos2","Chaos3" ), to = "CBCL")
@@ -150,7 +149,7 @@ structure <- relationships(
 
 # Estimando o Modelo: desfecho Externalizante
 
-pls_model <- estimate_pls(data = chaosdicEx, 
+pls_model <- estimate_pls(data = bancodicEx, 
                           measurement_model = measurements, 
                           structural_model = structure)
 summary(pls_model)

@@ -1,10 +1,8 @@
-###### Validação da CHAOS FORMATIVO #######
+###### Validação FORMATIVO #######
 ### Análises Baseada no site: 
-# http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/114-mca-multiple-correspondence-analysis-in-r-essentials/
-###### Omiti valores Missing verificar Intputação #########
 
 
-setwd("D:/Users/User/Documents/MEGA/Doutorado/ValidacaoCHAOS/Dicotomico/AnalisesDefinitivasR")
+setwd("D:/Users/User/Documents")
 getwd()
 
 if(!require(pacman)) install.packages("pacman")
@@ -24,13 +22,13 @@ install.packages(c("FactoMineR", "factoextra"))
 library("FactoMineR")
 library("factoextra")
 
-chaosdic <- read_xlsx("ChaosDicProntoForm.xlsx")
-chaosdic <- chaosdic[,7:21]
-chaosdic<- na.omit(chaosdic)
-chaosdic <- chaosdic %>% mutate_if(is.numeric, as.factor)
+bancodic <- read_xlsx("bancodicProntoForm.xlsx")
+bancodic <- bancodic[,7:21]
+bancodic<- na.omit(bancodic)
+bancodic <- bancodic %>% mutate_if(is.numeric, as.factor)
 
-MCA(chaosdic, ncp = 5, graph = TRUE)
-res.mca <- MCA(chaosdic, graph = FALSE)
+MCA(bancodic, ncp = 5, graph = TRUE)
+res.mca <- MCA(bancodic, graph = FALSE)
 get_eigenvalue(res.mca)
 fviz_screeplot(res.mca, addlabels = TRUE, ylim = c(0, 45))
 res = dimdesc(res.mca, axes=1:2, proba=0.05)
