@@ -1,6 +1,4 @@
 ###### Validação FORMATIVO #######
-### Análises Baseada no site: 
-
 
 setwd("D:/Users/User/Documents")
 getwd()
