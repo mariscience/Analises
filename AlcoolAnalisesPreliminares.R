@@ -1,9 +1,4 @@
 ######## Análises Preliminares #########
-
-# Mudanças no Banco de Dados ver script Manipulação Banco de Dados
-
-###### TRADUZIR O SCRIPT ########
-
 setwd("D:/Users/User/Documents/")
 getwd()
 
